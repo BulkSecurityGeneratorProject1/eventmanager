@@ -1,0 +1,121 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "eventType",
+            "otherEntityName": "eventType",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "comment",
+            "otherEntityName": "comment",
+            "otherEntityRelationshipName": "event"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "invitation",
+            "otherEntityName": "invitation",
+            "otherEntityRelationshipName": "event"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "userParticipate",
+            "otherEntityName": "userParticipate",
+            "otherEntityRelationshipName": "event"
+        },
+        {
+            "relationshipName": "eventMedia",
+            "otherEntityName": "eventMedia",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "event",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": 3,
+            "fieldValidateRulesMaxlength": 120
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": 3,
+            "fieldValidateRulesMaxlength": 50
+        },
+        {
+            "fieldName": "numberOfPlaces",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "numberOfPlacesRemaining",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "latitude",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "longitude",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "startEvent",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "endEvent",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "imageUrl",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": 3,
+            "fieldValidateRulesMaxlength": 255
+        },
+        {
+            "fieldName": "others",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": 3,
+            "fieldValidateRulesMaxlength": 255
+        },
+        {
+            "fieldName": "privateEvent",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "statusEvent",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "created",
+            "fieldType": "ZonedDateTime"
+        }
+    ],
+    "changelogDate": "20171203135911",
+    "javadoc": "The Event entity.",
+    "entityTableName": "event",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false
+}
