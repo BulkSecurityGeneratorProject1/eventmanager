@@ -1,0 +1,39 @@
+
+<div *ngIf="communityMedia">
+    <h2><span>community media</span> {{communityMedia.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+
+        <dt><span>Media</span></dt>
+        <dd>
+            <div *ngIf="communityMedia.media">
+                <a [routerLink]="['/media', communityMedia.media?.id]">{{communityMedia.media?.id}}</a>
+            </div>
+        </dd>
+        <dt><span>Community</span></dt>
+        <dd>
+            <div *ngIf="communityMedia.community">
+                <a [routerLink]="['/community', communityMedia.community?.id]">{{communityMedia.community?.community}}</a>
+            </div>
+        </dd>
+
+        <dt><span>Created</span></dt>
+        <dd>
+            <span>{{communityMedia.created | date:'medium'}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'community-media/'+ communityMedia.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> edit</span>
+    </button>
+</div>

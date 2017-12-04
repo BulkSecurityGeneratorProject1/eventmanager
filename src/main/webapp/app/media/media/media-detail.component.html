@@ -1,0 +1,47 @@
+
+<div *ngIf="media">
+    <h2><span>Media</span> {{media.id}} / {{media.media}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+
+        <dt><span>Media Type</span></dt>
+        <dd>
+            <div *ngIf="media.mediaType">
+                <a [routerLink]="['/media-type', media.mediaType?.id]">{{media.mediaType?.mediaType}}</a>
+            </div>
+        </dd>
+
+
+        <dt><span>Media</span></dt>
+        <dd>
+            <span>{{media.media}}</span>
+        </dd>
+        <dt><span>File Url</span></dt>
+        <dd>
+            <span>{{media.mediaUrl}}</span>
+        </dd>
+        <dt><span>Status Invitation</span></dt>
+        <dd>
+            <span>{{media.statusInvitation}}</span>
+        </dd>
+        <dt><span>Created</span></dt>
+        <dd>
+            <span>{{media.created | date:'medium'}}</span>
+        </dd>
+
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'media/'+ media.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> edit</span>
+    </button>
+</div>

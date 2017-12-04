@@ -1,0 +1,44 @@
+
+<div *ngIf="comment">
+    <h2><span>Comment</span> {{comment.id}} / {{comment.event?.event}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+
+        <dt><span>Event</span></dt>
+        <dd>
+            <div *ngIf="comment.event">
+                <a [routerLink]="['/event', comment.event?.id]">{{comment.event?.event}}</a>
+            </div>
+        </dd>
+        <dt><span>User Id</span></dt>
+        <dd>
+            <span>{{comment.userId}}</span>
+        </dd>
+        <dt><span>Comment</span></dt>
+        <dd>
+            <span>{{comment.comment}}</span>
+        </dd>
+        <dt><span>Publish</span></dt>
+        <dd>
+            <span>{{comment.publish}}</span>
+        </dd>
+        <dt><span>Created</span></dt>
+        <dd>
+            <span>{{comment.created | date:'medium'}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'comment/'+ comment.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> edit</span>
+    </button>
+</div>

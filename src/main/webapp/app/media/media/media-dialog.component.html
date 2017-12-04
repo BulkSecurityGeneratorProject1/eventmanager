@@ -1,0 +1,91 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myMediaLabel">Create or edit a Media</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!media.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="media.id" readonly />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" for="field_mediaType">Media Type</label>
+            <select class="form-control" id="field_mediaType" name="mediaType" [(ngModel)]="media.mediaType" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="mediaTypeOption.id === media.mediaType?.id ? media.mediaType : mediaTypeOption" *ngFor="let mediaTypeOption of mediatypes; trackBy: trackMediaTypeById">{{mediaTypeOption.mediaType}}</option>
+            </select>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="form-control-label" for="field_media">Media</label>
+            <input type="text" class="form-control" name="media" id="field_media"
+                [(ngModel)]="media.media" required minlength="3" maxlength="50" />
+            <div [hidden]="!(editForm.controls.media?.dirty && editForm.controls.media?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.media?.errors?.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.media?.errors?.minlength">
+                   This field is required to be at least 3 characters.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.media?.errors?.maxlength">
+                   This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_mediaUrl">File Url</label>
+            <input type="text" class="form-control" name="mediaUrl" id="field_mediaUrl"
+                [(ngModel)]="media.mediaUrl" required minlength="3" maxlength="255" />
+            <div [hidden]="!(editForm.controls.mediaUrl?.dirty && editForm.controls.mediaUrl?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.mediaUrl?.errors?.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.mediaUrl?.errors?.minlength">
+                   This field is required to be at least 3 characters.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.mediaUrl?.errors?.maxlength">
+                   This field cannot be longer than 255 characters.
+                </small>
+            </div>
+        </div>
+
+       <!--
+        <div class="form-group">
+            <label class="form-control-label" for="field_statusInvitation">Status Invitation</label>
+            <input type="checkbox" class="form-control" name="statusInvitation" id="field_statusInvitation"
+                [(ngModel)]="media.statusInvitation"  />
+        </div>
+          -->
+
+        <div class="form-group" [hidden]="!media.created">
+            <label class="form-control-label" for="field_created">Created</label>
+            <div class="d-flex">
+                <input id="field_created" type="datetime-local" class="form-control" name="created" [(ngModel)]="media.created"
+                  />
+            </div>
+        </div>
+
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

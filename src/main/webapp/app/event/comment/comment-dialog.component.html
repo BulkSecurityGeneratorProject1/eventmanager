@@ -1,0 +1,85 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myCommentLabel">create or edit a comment</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!comment.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="comment.id" readonly />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" for="field_event">event</label>
+            <select class="form-control" id="field_event" name="event" [(ngModel)]="comment.event" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="eventOption.id === comment.event?.id ? comment.event : eventOption" *ngFor="let eventOption of events; trackBy: trackEventById">{{eventOption.event}}</option>
+            </select>
+        </div>
+
+
+        <div class="form-group">
+            <label class="form-control-label" for="field_userId">User Id</label>
+            <input type="number" class="form-control" name="userId" id="field_userId"
+                [(ngModel)]="comment.userId" required />
+            <div [hidden]="!(editForm.controls.userId?.dirty && editForm.controls.userId?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.userId?.errors?.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.userId?.errors?.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_comment">comment</label>
+            <textarea class="form-control" name="comment" id="field_comment"
+                [(ngModel)]="comment.comment" required minlength="3" maxlength="255"
+            rows="30"
+            cols="30">
+            </textarea>
+            <div [hidden]="!(editForm.controls.comment?.dirty && editForm.controls.comment?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.comment?.errors?.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.comment?.errors?.minlength">
+                   This field is required to be at least 3 characters.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.comment?.errors?.maxlength">
+                   This field cannot be longer than 255 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_publish">publish</label>
+            <input type="checkbox" class="form-control" name="publish" id="field_publish"
+                [(ngModel)]="comment.publish"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_created">created</label>
+            <div class="d-flex">
+                <input id="field_created" type="datetime-local" class="form-control" name="created" [(ngModel)]="comment.created"
+                  />
+            </div>
+        </div>
+
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span>cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span>save</span>
+        </button>
+    </div>
+</form>

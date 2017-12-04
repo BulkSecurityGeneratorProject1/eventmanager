@@ -1,0 +1,167 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myEventLabel">create or edit a event</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!event.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="event.id" readonly />
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="form-control-label" for="field_eventType">Type</label>
+            <select class="form-control" id="field_eventType" name="eventType" [(ngModel)]="event.eventType" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="eventTypeOption.id === event.eventType?.id ? event.eventType : eventTypeOption" *ngFor="let eventTypeOption of eventtypes; trackBy: trackEventTypeById">{{eventTypeOption.eventType}}</option>
+            </select>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="form-control-label" for="field_event">Event</label>
+            <input type="text" class="form-control" name="event" id="field_event"
+                [(ngModel)]="event.event" required minlength="3" maxlength="120" />
+            <div [hidden]="!(editForm.controls.event?.dirty && editForm.controls.event?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.event?.errors?.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.event?.errors?.minlength">
+                   This field is required to be at least 3 characters.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.event?.errors?.maxlength">
+                   This field cannot be longer than 120 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_description">Description</label>
+            <textarea class="form-control" name="description" id="field_description"
+                [(ngModel)]="event.description" minlength="3" maxlength="50"
+            rows="30"
+            cols="30">
+            </textarea>
+            <div [hidden]="!(editForm.controls.description?.dirty && editForm.controls.description?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.description?.errors?.minlength">
+                   This field is required to be at least 3 characters.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.description?.errors?.maxlength">
+                   This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_numberOfPlaces">Places</label>
+            <input type="number" class="form-control" name="numberOfPlaces" id="field_numberOfPlaces"
+                [(ngModel)]="event.numberOfPlaces"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_numberOfPlacesRemaining">Places Remaining</label>
+            <input type="number" class="form-control" name="numberOfPlacesRemaining" id="field_numberOfPlacesRemaining"
+                [(ngModel)]="event.numberOfPlacesRemaining"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_latitude">Latitude</label>
+            <input type="number" class="form-control" name="latitude" id="field_latitude"
+                [(ngModel)]="event.latitude"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_longitude">Longitude</label>
+            <input type="number" class="form-control" name="longitude" id="field_longitude"
+                [(ngModel)]="event.longitude"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_startEvent">Start</label>
+            <div class="d-flex">
+                <input id="field_startEvent" type="datetime-local" class="form-control" name="startEvent" [(ngModel)]="event.startEvent"
+                  />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_endEvent">End</label>
+            <div class="d-flex">
+                <input id="field_endEvent" type="datetime-local" class="form-control" name="endEvent" [(ngModel)]="event.endEvent"
+                  />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_imageUrl">Icon Url</label>
+            <input type="text" class="form-control" name="imageUrl" id="field_imageUrl"
+                [(ngModel)]="event.imageUrl" minlength="3" maxlength="255" />
+            <div [hidden]="!(editForm.controls.imageUrl?.dirty && editForm.controls.imageUrl?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.imageUrl?.errors?.minlength">
+                   This field is required to be at least 3 characters.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.imageUrl?.errors?.maxlength">
+                   This field cannot be longer than 255 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_others">Others</label>
+            <textarea class="form-control" name="others" id="field_others"
+                [(ngModel)]="event.others" minlength="3" maxlength="255"
+                      rows="30"
+                      cols="50">
+            </textarea>
+            <div [hidden]="!(editForm.controls.others?.dirty && editForm.controls.others?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.others?.errors?.minlength">
+                   This field is required to be at least 3 characters.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.others?.errors?.maxlength">
+                   This field cannot be longer than 255 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_privateEvent">Private</label>
+            <input type="checkbox" class="form-control" name="privateEvent" id="field_privateEvent"
+                [(ngModel)]="event.privateEvent"  />
+        </div>
+        <div class="form-group" [hidden]="!event.statusEvent">
+            <label class="form-control-label" for="field_statusEvent">Status</label>
+            <input type="checkbox" class="form-control" name="statusEvent" id="field_statusEvent"
+                [(ngModel)]="event.statusEvent"  />
+        </div>
+        <div class="form-group" [hidden]="!event.created">
+            <label class="form-control-label" for="field_created">Created</label>
+            <div class="d-flex">
+                <input id="field_created" type="datetime-local" class="form-control" name="created" [(ngModel)]="event.created"
+                  />
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="form-control-label" for="field_eventMedia">Event Media</label>
+            <select class="form-control" id="field_eventMedia" name="eventMedia" [(ngModel)]="event.eventMedia" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="eventMediaOption.id === event.eventMedia?.id ? event.eventMedia : eventMediaOption" *ngFor="let eventMediaOption of eventmedias; trackBy: trackEventMediaById">{{eventMediaOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

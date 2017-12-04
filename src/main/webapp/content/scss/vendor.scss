@@ -1,0 +1,23 @@
+/* after changing this file run 'yarn run webpack:build' */
+$fa-font-path: '~font-awesome/fonts';
+
+/***************************
+put Sass variables here:
+eg $input-color: red;
+****************************/
+// Override Boostrap variables
+@import "bootstrap-variables";
+// Import Bootstrap source files from node_modules
+@import 'node_modules/bootstrap/scss/bootstrap';
+@import 'node_modules/font-awesome/scss/font-awesome';
+
+/* ==========================================================================
+PrimeNG and it's third-party dependencies resources
+========================================================================== */
+
+@import "~primeng/resources/primeng.min.css";
+ @import "~primeng/resources/themes/omega/theme.css";
+ @import "~quill/dist/quill.core.css";
+ @import "~quill/dist/quill.snow.css";
+
+/* jhipster-needle-scss-add-vendor JHipster will add new css style */

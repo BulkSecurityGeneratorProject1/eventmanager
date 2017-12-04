@@ -1,0 +1,37 @@
+
+<div *ngIf="owner">
+    <h2><span>owner</span> {{owner.id}} / {{owner.community?.community}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>User Id</span></dt>
+        <dd>
+            <span>{{owner.userId}}</span>
+        </dd>
+
+        <dt><span>Community</span></dt>
+        <dd>
+            <div *ngIf="owner.community">
+                <a [routerLink]="['/community', owner.community?.id]">{{owner.community?.community}}</a>
+            </div>
+        </dd>
+
+        <dt><span>Created</span></dt>
+        <dd>
+            <span>{{owner.created | date:'medium'}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'owner/'+ owner.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> edit</span>
+    </button>
+</div>

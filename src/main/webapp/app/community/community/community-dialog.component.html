@@ -1,0 +1,89 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myCommunityLabel">create or edit a community</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!community.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="community.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_community">Community</label>
+            <input type="text" class="form-control" name="community" id="field_community"
+                [(ngModel)]="community.community" required minlength="3" maxlength="50" />
+            <div [hidden]="!(editForm.controls.community?.dirty && editForm.controls.community?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.community?.errors?.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.community?.errors?.minlength">
+                   This field is required to be at least 3 characters.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.community?.errors?.maxlength">
+                   This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_description">Description</label>
+            <textarea  class="form-control" name="description" id="field_description"
+                [(ngModel)]="community.description" minlength="3" maxlength="255"
+            rows="30"
+            cols="50">
+            </textarea>
+            <div [hidden]="!(editForm.controls.description?.dirty && editForm.controls.description?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.description?.errors?.minlength">
+                   This field is required to be at least 3 characters.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.description?.errors?.maxlength">
+                   This field cannot be longer than 255 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_imageUrl">Icon Url</label>
+            <input type="text" class="form-control" name="imageUrl" id="field_imageUrl"
+                [(ngModel)]="community.imageUrl" minlength="3" maxlength="255" />
+            <div [hidden]="!(editForm.controls.imageUrl?.dirty && editForm.controls.imageUrl?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.imageUrl?.errors?.minlength">
+                   This field is required to be at least 3 characters.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.imageUrl?.errors?.maxlength">
+                   This field cannot be longer than 255 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_privateGroup">Private</label>
+            <input type="checkbox" class="form-control" name="privateGroup" id="field_privateGroup"
+                [(ngModel)]="community.privateGroup"  />
+        </div>
+        <div class="form-group" [hidden]="!community.created">
+            <label class="form-control-label" for="field_created">Created</label>
+            <div class="d-flex">
+                <input id="field_created" type="datetime-local" class="form-control" name="created" [(ngModel)]="community.created"
+                  />
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span>cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span>save</span>
+        </button>
+    </div>
+</form>

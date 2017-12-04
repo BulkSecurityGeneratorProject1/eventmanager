@@ -1,0 +1,80 @@
+<div>
+    <h2>
+        <span>event medias</span>
+        <button class="btn btn-primary float-right jh-create-entity create-event-media" [routerLink]="['/', { outlets: { popup: ['event-media-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down" >
+            create new event media
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="Search ...">
+                    <button class="input-group-addon btn btn-info" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="input-group-addon btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="eventMedias">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span>ID</span></th>
+            <th><span>Media</span></th>
+            <th><span>Created</span></th>
+
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let eventMedia of eventMedias ;trackBy: trackId">
+                <td><a [routerLink]="['../event-media', eventMedia.id ]">{{eventMedia.id}}</a></td>
+
+                <td>
+                    <div *ngIf="eventMedia.media">
+                        <a [routerLink]="['../media', eventMedia.media?.id ]" >{{eventMedia.media?.media}}</a>
+                    </div>
+                </td>
+
+                <td>{{eventMedia.created | date:'medium'}}</td>
+
+
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../event-media', eventMedia.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'event-media/'+ eventMedia.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'event-media/'+ eventMedia.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

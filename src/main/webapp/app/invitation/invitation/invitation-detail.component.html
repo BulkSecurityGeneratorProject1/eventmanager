@@ -1,0 +1,91 @@
+
+<div *ngIf="invitation">
+    <h2><span>Invitation</span> {{invitation.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>User Id</span></dt>
+        <dd>
+            <span>{{invitation.userId}}</span>
+        </dd>
+
+        <dt><span>Event</span></dt>
+        <dd>
+            <div *ngIf="invitation.event">
+                <a [routerLink]="['/event', invitation.event?.id]">{{invitation.event?.event}}</a>
+            </div>
+        </dd>
+
+
+        <dt><span>Corporate</span></dt>
+        <dd>
+            <span>{{invitation.corporate}}</span>
+        </dd>
+        <dt><span>Full Name</span></dt>
+        <dd>
+            <span>{{invitation.fullName}}</span>
+        </dd>
+        <dt><span>Email</span></dt>
+        <dd>
+            <span>{{invitation.email}}</span>
+        </dd>
+        <dt><span>Phone</span></dt>
+        <dd>
+            <span>{{invitation.phone}}</span>
+        </dd>
+        <dt><span>Mobile Phone</span></dt>
+        <dd>
+            <span>{{invitation.mobilePhone}}</span>
+        </dd>
+        <dt><span>Message</span></dt>
+        <dd>
+            <span>{{invitation.message}}</span>
+        </dd>
+        <dt><span>Voice Message</span></dt>
+        <dd>
+            <span>{{invitation.voiceMessage}}</span>
+        </dd>
+        <dt><span>Send To Email</span></dt>
+        <dd>
+            <span>{{invitation.sendToEmail}}</span>
+        </dd>
+        <dt><span>Send To Call Phone</span></dt>
+        <dd>
+            <span>{{invitation.sendToCallPhone}}</span>
+        </dd>
+        <dt><span>Send To Voice Mobile Phone</span></dt>
+        <dd>
+            <span>{{invitation.sendToVoiceMobilePhone}}</span>
+        </dd>
+        <dt><span>Send To SMS Mobile Phone</span></dt>
+        <dd>
+            <span>{{invitation.sendToSMSMobilePhone}}</span>
+        </dd>
+        <dt><span>Period To Send</span></dt>
+        <dd>
+            <span>{{invitation.periodToSend | date:'medium'}}</span>
+        </dd>
+        <dt><span>Status Invitation</span></dt>
+        <dd>
+            <span>{{invitation.statusInvitation}}</span>
+        </dd>
+        <dt><span>Created</span></dt>
+        <dd>
+            <span>{{invitation.created | date:'medium'}}</span>
+        </dd>
+
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'invitation/'+ invitation.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>

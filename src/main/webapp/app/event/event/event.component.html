@@ -1,0 +1,97 @@
+<div>
+    <h2>
+        <span>events</span>
+        <button class="btn btn-primary float-right jh-create-entity create-event" [routerLink]="['/', { outlets: { popup: ['event-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down" >
+            create new event
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="Search ...">
+                    <button class="input-group-addon btn btn-info" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="input-group-addon btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="events">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+
+            <th jhiSortBy="imageUrl"><span>Icon</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="eventType.id"><span>Event Type</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="event"><span>Event</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="numberOfPlaces"><span>Places</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="numberOfPlacesRemaining"><span>Places Remaining</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="startEvent"><span>Start</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="endEvent"><span>End</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="privateEvent"><span>Private</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="created"><span>Created</span> <span class="fa fa-sort"></span></th>
+
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let event of events ;trackBy: trackId">
+
+                <td>{{event.imageUrl}}</td>
+                <td>
+                    <div *ngIf="event.eventType">
+                        <a [routerLink]="['../event-type', event.eventType?.id ]" >{{event.eventType?.eventType}}</a>
+                    </div>
+                </td>
+
+                <td><a [routerLink]="['../event', event.id ]">{{event.event}}</a></td>
+                <td>{{event.numberOfPlaces}}</td>
+                <td>{{event.numberOfPlacesRemaining}}</td>
+                <td>{{event.startEvent | date:'medium'}}</td>
+                <td>{{event.endEvent | date:'medium'}}</td>
+                <td>{{event.privateEvent}}</td>
+                <td>{{event.created | date:'medium'}}</td>
+
+                <td>
+                    <div *ngIf="event.eventMedia">
+                        <a [routerLink]="['../event-media', event.eventMedia?.id ]" >{{event.eventMedia?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../event', event.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'event/'+ event.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'event/'+ event.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,88 @@
+
+<div *ngIf="event">
+    <h2><span>Event</span> {{event.id}} / {{event.event}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Type</span></dt>
+        <dd>
+            <div *ngIf="event.eventType">
+                <a [routerLink]="['/event-type', event.eventType?.id]">{{event.eventType?.eventType}}</a>
+            </div>
+        </dd>
+        <dt><span>Icon</span></dt>
+        <dd>
+            <span>{{event.imageUrl}}</span>
+        </dd>
+        <dt><span>Event</span></dt>
+        <dd>
+            <span>{{event.event}}</span>
+        </dd>
+        <dt><span>Description</span></dt>
+        <dd>
+            <span>{{event.description}}</span>
+        </dd>
+        <dt><span>Number Of Places</span></dt>
+        <dd>
+            <span>{{event.numberOfPlaces}}</span>
+        </dd>
+        <dt><span>Number Of Places Remaining</span></dt>
+        <dd>
+            <span>{{event.numberOfPlacesRemaining}}</span>
+        </dd>
+        <dt><span>Latitude</span></dt>
+        <dd>
+            <span>{{event.latitude}}</span>
+        </dd>
+        <dt><span>Longitude</span></dt>
+        <dd>
+            <span>{{event.longitude}}</span>
+        </dd>
+        <dt><span>Start</span></dt>
+        <dd>
+            <span>{{event.startEvent | date:'medium'}}</span>
+        </dd>
+        <dt><span>End</span></dt>
+        <dd>
+            <span>{{event.endEvent | date:'medium'}}</span>
+        </dd>
+
+        <dt><span>Others</span></dt>
+        <dd>
+            <span>{{event.others}}</span>
+        </dd>
+
+        <dt><span>Media</span></dt>
+        <dd>
+            <div *ngIf="event.eventMedia">
+                <a [routerLink]="['/event-media', event.eventMedia?.id]">{{event.eventMedia?.id}}</a>
+            </div>
+        </dd>
+        <dt><span>Private</span></dt>
+        <dd>
+            <span>{{event.privateEvent}}</span>
+        </dd>
+        <dt><span>Status</span></dt>
+        <dd>
+            <span>{{event.statusEvent}}</span>
+        </dd>
+        <dt><span>Created</span></dt>
+        <dd>
+            <span>{{event.created | date:'medium'}}</span>
+        </dd>
+
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'event/'+ event.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>

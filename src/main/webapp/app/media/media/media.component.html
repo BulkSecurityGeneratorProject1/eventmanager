@@ -1,0 +1,80 @@
+<div>
+    <h2>
+        <span>media</span>
+        <button class="btn btn-primary float-right jh-create-entity create-media" [routerLink]="['/', { outlets: { popup: ['media-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down" >
+            create new media
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="Search ...">
+                    <button class="input-group-addon btn btn-info" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="input-group-addon btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="media">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span>Media type</span></th>
+            <th><span>Media</span></th>
+            <th><span>File url</span></th>
+            <th><span>Created</span></th>
+
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let media of media ;trackBy: trackId">
+                <td>
+                    <div *ngIf="media.mediaType">
+                        <a [routerLink]="['../media-type', media.mediaType?.id ]" >{{media.mediaType?.mediaType}}</a>
+                    </div>
+                </td>
+                <td><a [routerLink]="['../media', media.id ]">{{media.media}}</a></td>
+
+                <td>{{media.mediaUrl}}</td>
+                <td>{{media.created | date:'medium'}}</td>
+
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../media', media.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'media/'+ media.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'media/'+ media.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

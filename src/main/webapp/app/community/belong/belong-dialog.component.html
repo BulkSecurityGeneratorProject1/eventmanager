@@ -1,0 +1,56 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myBelongLabel">create or edit a belong</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!belong.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="belong.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_userId">User Id</label>
+            <input type="number" class="form-control" name="userId" id="field_userId"
+                [(ngModel)]="belong.userId" required />
+            <div [hidden]="!(editForm.controls.userId?.dirty && editForm.controls.userId?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.userId?.errors?.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.userId?.errors?.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" for="field_community">Community</label>
+            <select class="form-control" id="field_community" name="community" [(ngModel)]="belong.community" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="communityOption.id === belong.community?.id ? belong.community : communityOption" *ngFor="let communityOption of communities; trackBy: trackCommunityById">{{communityOption.community}}</option>
+            </select>
+        </div>
+
+        <div class="form-group" [hidden]="!belong.created">
+            <label class="form-control-label" for="field_created">Created</label>
+            <div class="d-flex">
+                <input id="field_created" type="datetime-local" class="form-control" name="created" [(ngModel)]="belong.created"
+                />
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span>cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span>save</span>
+        </button>
+    </div>
+</form>

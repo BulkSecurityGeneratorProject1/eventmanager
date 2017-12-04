@@ -1,0 +1,19 @@
+version: '2'
+services:
+    eventmanager-app:
+        image: eventmanager
+        environment:
+            - SPRING_PROFILES_ACTIVE=prod,swagger
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://eventmanager-postgresql:5432/eventmanager
+            - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
+            - SPRING_DATA_ELASTICSEARCH_CLUSTER_NODES=eventmanager-elasticsearch:9300
+        ports:
+            - 8080:8080
+    eventmanager-postgresql:
+        extends:
+            file: postgresql.yml
+            service: eventmanager-postgresql
+    eventmanager-elasticsearch:
+        extends:
+            file: elasticsearch.yml
+            service: eventmanager-elasticsearch

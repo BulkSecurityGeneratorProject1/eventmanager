@@ -1,0 +1,44 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myEventMediaLabel">create or edit a event media</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!eventMedia.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="eventMedia.id" readonly />
+        </div>
+
+
+        <div class="form-group">
+            <label class="form-control-label" for="field_media">Media</label>
+            <select class="form-control" id="field_media" name="media" [(ngModel)]="eventMedia.media" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="mediaOption.id === eventMedia.media?.id ? eventMedia.media : mediaOption" *ngFor="let mediaOption of media; trackBy: trackMediaById">{{mediaOption.id}}</option>
+            </select>
+        </div>
+
+
+        <div class="form-group" [hidden]="!eventMedia.created">
+            <label class="form-control-label" for="field_created">Created</label>
+            <div class="d-flex">
+                <input id="field_created" type="datetime-local" class="form-control" name="created" [(ngModel)]="eventMedia.created"
+                />
+            </div>
+        </div>
+
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

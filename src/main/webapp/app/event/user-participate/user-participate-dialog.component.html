@@ -1,0 +1,58 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myUserParticipateLabel">create or edit a user participate</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!userParticipate.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="userParticipate.id" readonly />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" for="field_event">Event</label>
+            <select class="form-control" id="field_event" name="event" [(ngModel)]="userParticipate.event" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="eventOption.id === userParticipate.event?.id ? userParticipate.event : eventOption" *ngFor="let eventOption of events; trackBy: trackEventById">{{eventOption.event}}</option>
+            </select>
+        </div>
+
+
+        <div class="form-group">
+            <label class="form-control-label" for="field_userId">User Id</label>
+            <input type="number" class="form-control" name="userId" id="field_userId"
+                [(ngModel)]="userParticipate.userId" required />
+            <div [hidden]="!(editForm.controls.userId?.dirty && editForm.controls.userId?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.userId?.errors?.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.userId?.errors?.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group" [hidden]="!userParticipate.created">
+            <label class="form-control-label" for="field_created">Created</label>
+            <div class="d-flex">
+                <input id="field_created" type="datetime-local" class="form-control" name="created" [(ngModel)]="userParticipate.created"
+                  />
+            </div>
+        </div>
+
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span>cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span>save</span>
+        </button>
+    </div>
+</form>

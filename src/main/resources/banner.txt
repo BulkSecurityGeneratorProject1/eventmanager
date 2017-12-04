@@ -1,0 +1,20 @@
+                                                               .
+         .             .                              .        ..      .  .
+..    . ... ..  . . . ....  .....   .  .  . . . ..... .         .         .
+ .IIIII.     .7?III:                                  .         .         .
++?IIIIII+   +IIIIIII~.                                .         .         .
+7II...IIII,+III...III.                                .         .      .  .
+IIII  .:III=.~...7II+.     III7..?I=  .7I..??.        .. .. .. .. . .  .. .. ..
+.=III+ ,III?. .=IIII .   ,II..II,.II?,II.  ZZ,
+  .IIII$7I:...IIII,.     ~II???I=..IIII~..=ZZZ+.?ZZZZ+ .OZZZZ:,Z$ZZZ7ZZZO~
+   .+IIII.. ,IIII .      ~II====:  .II~    ZZ, .Z?. $Z . . .ZZ,ZO. $Z: ~ZO
+  ,OO8IIII~...IIII..     ~I?      .O.II=   ZZ, ~ZZOOOO.,OZOOZZ,ZZ  7Z. .ZZ
+.IZZZ?.,III?  .~IIII.    ,II:,:~..OZ7,II.  ZZ: .Z$. ~:.$Z. .ZO,ZZ  7Z. .ZZ
+$ZZO.  ..7III~ ..III=.   .,7III+.7Z$  .II..:OZ+.~OZZZ7 .OZZZO,,ZZ  7Z. .ZO
+OZZ. .OZZ+.?III. .III.     .....      ..... ..                     .    .
+?$ZZZZZZ+  .:IIIIIII:.                                          .      .
+ :ZZZZZ,    ..7IIII+
+    .         .....
+
+${AnsiColor.BRIGHT_BLUE}:: Exteam 🤓  :: Running Spring Boot ${spring-boot.version} ::
+:: http://www.exteam.fr ::${AnsiColor.DEFAULT}

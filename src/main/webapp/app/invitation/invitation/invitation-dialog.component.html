@@ -1,0 +1,226 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myInvitationLabel">Create or edit a Invitation</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!invitation.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="invitation.id" readonly />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" for="field_event">Event</label>
+            <select class="form-control" id="field_event" name="event" [(ngModel)]="invitation.event" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="eventOption.id === invitation.event?.id ? invitation.event : eventOption" *ngFor="let eventOption of events; trackBy: trackEventById">{{eventOption.event}}</option>
+            </select>
+        </div>
+
+
+        <div class="form-group">
+            <label class="form-control-label" for="field_userId">User Id</label>
+            <input type="number" class="form-control" name="userId" id="field_userId"
+                [(ngModel)]="invitation.userId" required/>
+            <div [hidden]="!(editForm.controls.userId?.dirty && editForm.controls.userId?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.userId?.errors?.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.userId?.errors?.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_corporate">Corporate</label>
+            <input type="text" class="form-control" name="corporate" id="field_corporate"
+                [(ngModel)]="invitation.corporate" required minlength="3" maxlength="100"/>
+            <div [hidden]="!(editForm.controls.corporate?.dirty && editForm.controls.corporate?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.corporate?.errors?.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.corporate?.errors?.minlength">
+                   This field is required to be at least 3 characters.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.corporate?.errors?.maxlength">
+                   This field cannot be longer than 100 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_fullName">Full Name</label>
+            <input type="text" class="form-control" name="fullName" id="field_fullName"
+                [(ngModel)]="invitation.fullName" required minlength="3" maxlength="100"/>
+            <div [hidden]="!(editForm.controls.fullName?.dirty && editForm.controls.fullName?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.fullName?.errors?.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.fullName?.errors?.minlength">
+                   This field is required to be at least 3 characters.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.fullName?.errors?.maxlength">
+                   This field cannot be longer than 100 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_email">Email</label>
+            <input type="text" class="form-control" name="email" id="field_email"
+                [(ngModel)]="invitation.email" required minlength="3" maxlength="255"/>
+            <div [hidden]="!(editForm.controls.email?.dirty && editForm.controls.email?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.email?.errors?.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.email?.errors?.minlength">
+                   This field is required to be at least 3 characters.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.email?.errors?.maxlength">
+                   This field cannot be longer than 255 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_phone">Phone</label>
+            <input type="text" class="form-control" name="phone" id="field_phone"
+                [(ngModel)]="invitation.phone" required minlength="3" maxlength="50"/>
+            <div [hidden]="!(editForm.controls.phone?.dirty && editForm.controls.phone?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.phone?.errors?.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.phone?.errors?.minlength">
+                   This field is required to be at least 3 characters.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.phone?.errors?.maxlength">
+                   This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_mobilePhone">Mobile Phone</label>
+            <input type="text" class="form-control" name="mobilePhone" id="field_mobilePhone"
+                [(ngModel)]="invitation.mobilePhone" required minlength="3" maxlength="50"/>
+            <div [hidden]="!(editForm.controls.mobilePhone?.dirty && editForm.controls.mobilePhone?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.mobilePhone?.errors?.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.mobilePhone?.errors?.minlength">
+                   This field is required to be at least 3 characters.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.mobilePhone?.errors?.maxlength">
+                   This field cannot be longer than 50 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_message">Message</label>
+            <textarea type="text" class="form-control" name="message" id="field_message"
+                [(ngModel)]="invitation.message" required minlength="3" maxlength="255"
+                      rows="30"
+                      cols="30">
+            </textarea>
+            <div [hidden]="!(editForm.controls.message?.dirty && editForm.controls.message?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.message?.errors?.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.message?.errors?.minlength">
+                   This field is required to be at least 3 characters.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.message?.errors?.maxlength">
+                   This field cannot be longer than 255 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_voiceMessage">Voice Message</label>
+            <input type="text" class="form-control" name="voiceMessage" id="field_voiceMessage"
+                [(ngModel)]="invitation.voiceMessage" required minlength="3" maxlength="255"/>
+            <div [hidden]="!(editForm.controls.voiceMessage?.dirty && editForm.controls.voiceMessage?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.voiceMessage?.errors?.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.voiceMessage?.errors?.minlength">
+                   This field is required to be at least 3 characters.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.voiceMessage?.errors?.maxlength">
+                   This field cannot be longer than 255 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_sendToEmail">Send To Email</label>
+            <input type="checkbox" class="form-control" name="sendToEmail" id="field_sendToEmail"
+                [(ngModel)]="invitation.sendToEmail" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_sendToCallPhone">Send To Call Phone</label>
+            <input type="checkbox" class="form-control" name="sendToCallPhone" id="field_sendToCallPhone"
+                [(ngModel)]="invitation.sendToCallPhone" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_sendToVoiceMobilePhone">Send To Voice Mobile Phone</label>
+            <input type="checkbox" class="form-control" name="sendToVoiceMobilePhone" id="field_sendToVoiceMobilePhone"
+                [(ngModel)]="invitation.sendToVoiceMobilePhone" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_sendToSMSMobilePhone">Send To SMS Mobile Phone</label>
+            <input type="checkbox" class="form-control" name="sendToSMSMobilePhone" id="field_sendToSMSMobilePhone"
+                [(ngModel)]="invitation.sendToSMSMobilePhone" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_periodToSend">Period To Send</label>
+            <div class="d-flex">
+                <input id="field_periodToSend" type="datetime-local" class="form-control" name="periodToSend" [(ngModel)]="invitation.periodToSend"
+                />
+            </div>
+        </div>
+        <div class="form-group" [hidden]="invitation.created">
+            <label class="form-control-label" for="field_statusInvitation">Status Invitation</label>
+            <input type="checkbox" class="form-control" name="statusInvitation" id="field_statusInvitation"
+                [(ngModel)]="invitation.statusInvitation" />
+        </div>
+        <div class="form-group" [hidden]="invitation.created">
+            <label class="form-control-label" for="field_created">Created</label>
+            <div class="d-flex">
+                <input id="field_created" type="datetime-local" class="form-control" name="created" [(ngModel)]="invitation.created"
+                />
+            </div>
+        </div>
+
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>
